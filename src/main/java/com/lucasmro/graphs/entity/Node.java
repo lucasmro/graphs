@@ -3,15 +3,19 @@ package com.lucasmro.graphs.entity;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class Node {
+public class Node implements Comparable<Node> {
+    public static final Integer DISTANCE_TO_INFINITY = Integer.MAX_VALUE;
+
     private char label;
     private LinkedHashMap<Node, Integer> outNeighbors;
     private LinkedHashMap<Node, Integer> inNeighbors;
+    private Integer distance;
 
     public Node(char label) {
         this.label = label;
         this.outNeighbors = new LinkedHashMap<Node, Integer>();
         this.inNeighbors = new LinkedHashMap<Node, Integer>();
+        this.distance = DISTANCE_TO_INFINITY;
     }
 
     public char getLabel() {
@@ -68,5 +72,17 @@ public class Node {
         if (null == inNeighbors.get(source)) {
             inNeighbors.put(source, cost);
         }
+    }
+
+    public Integer getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
+    }
+
+    public int compareTo(Node o) {
+        return this.distance.compareTo(o.getDistance());
     }
 }
