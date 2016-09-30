@@ -1,9 +1,9 @@
 package com.lucasmro.graphs.algorithm;
 
 import java.util.LinkedHashMap;
-import java.util.NoSuchElementException;
 
 import com.lucasmro.graphs.entity.Node;
+import com.lucasmro.graphs.exception.NoSuchRouteException;
 
 public class PathCostSearch {
 
@@ -20,7 +20,7 @@ public class PathCostSearch {
             LinkedHashMap<Node, Integer> neighbours = prev.getOutNeighbors();
 
             if (!neighbours.containsKey(curr)) {
-                throw new NoSuchElementException();
+                throw new NoSuchRouteException();
             }
 
             sum += neighbours.get(curr);

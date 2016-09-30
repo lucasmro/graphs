@@ -1,18 +1,22 @@
 package com.lucasmro.graphs.algorithm;
 
-import java.util.NoSuchElementException;
-
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.lucasmro.graphs.entity.Direction;
 import com.lucasmro.graphs.entity.Node;
+import com.lucasmro.graphs.exception.NoSuchRouteException;
 
 public class PathCostSearchTest {
 
     Node A, B, C, D, E, F;
     PathCostSearch algorithm;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setUp() {
@@ -48,8 +52,11 @@ public class PathCostSearchTest {
         Assert.assertEquals(5, algorithm.calculateCostBetweenNodes(A, D, E));
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void testShouldThrowNoSuchElementExceptionWhenRouteIsAFE() {
+    @Test
+    public void testShouldThrowNoSuchRouteExceptionWhenRouteIsAFE() {
+        expectedException.expect(NoSuchRouteException.class);
+        expectedException.expectMessage("NO SUCH ROUTE");
+
         algorithm.calculateCostBetweenNodes(A, F, E);
     }
 
